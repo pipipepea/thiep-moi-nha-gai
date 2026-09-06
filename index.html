@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới Online — Minh Thư & Văn Phúc</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #5C100E; 
+            --card-bg: #FDFBF7; 
+            --text-main: #332724; 
+            --accent-gold: #D4AF37; 
+            --accent-red: #8A1C14; 
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle, #7A1713 0%, #4A0C0A 100%);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+            overflow: hidden;
+        }
+        
+        .petal {
+            position: absolute;
+            top: -10%;
+            z-index: 10;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+            opacity: 0.7;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); }
+            100% { transform: translateY(110vh) rotate(360deg) scale(1.2); }
+        }
+
+        .invitation-wrapper {
+            width: 100%;
+            max-width: 480px;
+            height: 820px;
+            max-height: 95vh;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            overflow: hidden;
+            border: 2px solid var(--accent-gold);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+        }
+        
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--card-bg);
+            padding: 40px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            pointer-events: none;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            overflow-y: auto;
+            z-index: 1;
+        }
+        
+        .page::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="%23D4AF37" fill-opacity="0.15"/></svg>');
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        #page2, #page3 { justify-content: flex-start; }
+        #page1 { justify-content: space-between; }
+
+        .page.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+            z-index: 2;
+        }
+
+        .page > div {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            width: 100%;
+        }
+        .page.active > div:nth-child(1) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+        .page.active > div:nth-child(2) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+        .page.active > div:nth-child(3) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); }
+        .page.active > div:nth-child(4) { transition-delay: 0.8s; opacity: 1; transform: translateY(0); }
+        .page.active > div:nth-child(5) { transition-delay: 1.0s; opacity: 1; transform: translateY(0); }
+
+        /* THAY ẢNH NỀN TẠI ĐÂY */
+        .cover-page {
+            background-image: linear-gradient(rgba(92, 16, 14, 0.75), rgba(74, 12, 10, 0.85)), 
+                              url('anh-cuoi.jpg'); /* Đảm bảo file anh-cuoi.jpg đã được tải lên Github */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #FDFBF7;
+        }
+        .cover-page::before { display: none; }
+        
+        .cover-names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 56px;
+            color: var(--accent-gold);
+            margin: 20px 0;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .floral-decor {
+            font-size: 26px;
+            color: var(--accent-red);
+            margin-bottom: 10px;
+            text-shadow: 0px 2px 5px rgba(212, 175, 55, 0.3);
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+            color: var(--accent-gold);
+            width: 100%;
+        }
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--accent-gold);
+            opacity: 0.6;
+            margin: 0 15px;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: var(--accent-red);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+        
+        .family-grid {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            margin: 10px 0;
+            text-align: left;
+        }
+        .family-column {
+            flex: 1;
+            background: #FFF;
+            padding: 15px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .family-column h4 {
+            color: var(--accent-red);
+            font-size: 13px;
+            margin-bottom: 8px;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            text-transform: uppercase;
+            border-bottom: 1px dashed var(--accent-gold);
+            padding-bottom: 6px;
+        }
+        .family-column p { font-size: 11px; line-height: 1.6; }
+        
+        .venue-card {
+            background: #FFF;
+            border: 1.5px solid var(--accent-gold);
+            border-radius: 12px;
+            padding: 25px 20px;
+            width: 100%;
+            margin-top: 10px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(138, 28, 20, 0.1);
+        }
+        .venue-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: var(--accent-red);
+            margin-bottom: 8px;
+        }
+        .time-badge {
+            font-family: 'Playfair Display', serif;
+            font-size: 19px;
+            font-weight: bold;
+            color: var(--accent-red);
+            margin: 12px 0 4px 0;
+            background: #FFF8E7;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--accent-gold);
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-gold);
+            color: #4A0C0A; 
+            border: none;
+            padding: 14px 35px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            background-color: #E6C55C;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 1.5px solid var(--accent-gold);
+            color: var(--accent-red);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+        .btn-secondary:hover {
+            background-color: var(--accent-gold);
+            color: #FFF;
+        }
+        .map-container {
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Nhạc nền -->
+<audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=piano-moment-9835.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ thẻ audio.
+</audio>
+
+<!-- Nơi thả cánh hoa rơi -->
+<div id="flower-container"></div>
+
+<div class="invitation-wrapper">
+    <!-- TRANG 1: BÌA -->
+    <div class="page cover-page active" id="page1">
+        <div>
+            <div style="font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-gold); margin-top: 50px;">Thiệp Mời Lễ Vu Quy</div>
+            <div class="cover-names">Minh Thư <br><span style="font-size: 36px; font-family: 'Playfair Display'; color: #FFF;">&amp;</span><br> Văn Phúc</div>
+            <div style="font-size: 14px; letter-spacing: 3px; margin-top: 15px; color: #FDFBF7; font-family: 'Playfair Display', serif;">20 . 09 . 2026</div>
+        </div>
+        <div></div>
+        <div>
+            <p style="font-size: 14px; font-style: italic; color: #D4AF37; margin-bottom: 20px; font-family: 'Playfair Display', serif; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">Trân trọng kính mời Quý khách</p>
+            <button class="btn-primary" onclick="openInvitationAndPlayMusic()">Mở Thiệp</button>
+        </div>
+    </div>
+
+    <!-- TRANG 2: LỄ VU QUY & THÔNG TIN GIA ĐÌNH -->
+    <div class="page" id="page2">
+        <div>
+            <div class="floral-decor">囍</div>
+            <div class="section-title" style="font-size: 18px; margin-top: 10px;">Trân Trọng Báo Tin Lễ Vu Quy</div>
+        </div>
+        
+        <div>
+            <div class="family-grid">
+                <div class="family-column">
+                    <h4>Nhà Gái</h4>
+                    <p><strong>Ông:</strong> Nguyễn Lê Quân</p>
+                    <p><strong>Bà:</strong> Nguyễn Thị Sinh</p>
+                    <p style="margin-top: 6px; font-size: 10px; color: #666;">26 Cách Mạng, P. Phú Thọ Hòa<br>TP. HCM</p>
+                </div>
+                <div class="family-column">
+                    <h4>Nhà Trai</h4>
+                    <p><strong>Ông:</strong> Nguyễn Văn Hân</p>
+                    <p><strong>Bà:</strong> Trần Thị Lý</p>
+                    <p style="margin-top: 6px; font-size: 10px; color: #666;">Thôn Phúc Lộc, Xã Hải Hưng<br>Tỉnh Ninh Bình</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div style="margin: 15px 0;">
+                <p style="font-size: 13px; color: var(--accent-red); font-style: italic; margin-bottom: 10px; font-weight: 500;">Trân trọng kính mời Quý khách đến dự Lễ Vu Quy của con gái chúng tôi:</p>
+                
+                <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
+                    <div style="text-align: right;">
+                        <span style="font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nữ</span>
+                        <h3 style="font-family: 'Great Vibes', cursive; font-size: 32px; color: var(--accent-red); margin: 2px 0;">Minh Thư</h3>
+                    </div>
+                    <div style="font-family: 'Playfair Display'; font-size: 22px; color: var(--accent-gold);">&amp;</div>
+                    <div style="text-align: left;">
+                        <span style="font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nam</span>
+                        <h3 style="font-family: 'Great Vibes', cursive; font-size: 32px; color: var(--accent-red); margin: 2px 0;">Văn Phúc</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #FFF8E7; padding: 12px; border-radius: 8px; border: 1px solid var(--accent-gold); width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                <p style="font-size: 12px; line-height: 1.6; color: var(--text-main);">
+                    Hôn lễ được cử hành tại tư gia vào lúc <strong style="color: var(--accent-red); font-size: 14px;">09:00</strong> ngày <strong style="color: var(--accent-red); font-size: 14px;">20.09.2026</strong><br>
+                    <span style="font-size: 11px; color: #666; font-style: italic;">(Nhằm ngày 10 tháng 8 năm Bính Ngọ)</span>
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 15px; padding-bottom: 20px;">
+            <button class="btn-primary" onclick="goToPage(3)">Tiệc Đãi Khách ➔</button>
+        </div>
+    </div>
+
+    <!-- TRANG 3: TIỆC ĐÃI KHÁCH & BẢN ĐỒ -->
+    <div class="page" id="page3">
+        <div>
+            <div class="floral-decor">🥂</div>
+            <div class="section-title" style="font-size: 22px; margin-top: 5px;">Tiệc Mừng Cưới</div>
+            <p style="font-size: 12.5px; color: #555; margin-bottom: 5px; font-style: italic;">Kính mời Quý khách đến dự buổi tiệc rượu<br>chung vui cùng gia đình nhà gái chúng tôi tại:</p>
+        </div>
+
+        <div>
+            <div class="venue-card">
+                <h3>Nhà Hàng Thủy Tạ Đầm Sen</h3>
+                <p style="font-weight: 600; font-size: 14px; color: var(--accent-red); margin-bottom: 6px; text-transform: uppercase;">Sảnh Ngân Sen</p>
+                <p style="font-size: 12px; color: #555;">Số 03 Hòa Bình, Phường Bình Thới, Quận 11, TP. HCM</p>
+                
+                <div class="time-badge">CHỦ NHẬT — 11:00</div>
+                <p style="font-size: 14px; font-weight: 500;">Ngày 20 Tháng 09 Năm 2026</p>
+                
+                <div style="font-size: 12px; color: #777; border-top: 1px dashed var(--accent-gold); padding-top: 12px; margin-top: 15px; font-weight: 500;">
+                    Đón khách: 11h00 &nbsp;|&nbsp; Khai tiệc: 12h00
+                </div>
+            </div>
+        </div>
+
+        <!-- Bản đồ Google Maps -->
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.522923722731!2d106.636657915334!3d10.771207892324905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ea11e9a31a9%3A0xc07a8bdf1b0386cf!2zTmjDoCBIw6BuZyBUaOG7p3kgVOG6oSDEkOG6p20gU2Vu!5e0!3m2!1svi!2s!4v1680000000000!5m2!1svi!2s" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div style="margin-top: 25px; padding-bottom: 40px;">
+            <p style="font-style: italic; font-size: 14px; color: var(--accent-red); margin-bottom: 15px; font-family: 'Playfair Display', serif;">
+                Sự hiện diện của Quý khách là niềm vinh hạnh lớn cho gia đình!
+            </p>
+            <button class="btn-secondary" onclick="goToPage(1)">⟵ Quay lại trang bìa</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function goToPage(pageNum) {
+        for (let i = 1; i <= 3; i++) {
+            document.getElementById('page' + i).classList.remove('active');
+        }
+        document.getElementById('page' + pageNum).classList.add('active');
+    }
+
+    function openInvitationAndPlayMusic() {
+        const music = document.getElementById('bgMusic');
+        music.play().catch(error => {
+            console.log("Trình duyệt yêu cầu tương tác thêm để phát nhạc.", error);
+        });
+        goToPage(2);
+    }
+
+    const flowerContainer = document.getElementById('flower-container');
+    const symbols = ['🌸', '✨', '💖', '❤️', '🌟']; 
+
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        petal.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.fontSize = (Math.random() * 10 + 14) + 'px'; 
+        
+        if(petal.innerHTML === '✨' || petal.innerHTML === '🌟') {
+            petal.style.textShadow = '0 0 5px #D4AF37';
+        }
+
+        const duration = Math.random() * 5 + 4;
+        petal.style.animationDuration = duration + 's';
+        petal.style.animationDelay = Math.random() * 2 + 's';
+        flowerContainer.appendChild(petal);
+        
+        setTimeout(() => {
+            petal.remove();
+        }, (duration + 2) * 1000);
+    }
+    
+    setInterval(createPetal, 400);
+    for(let i=0; i<12; i++) {
+        createPetal();
+    }
+</script>
+
+</body>
+</html>
