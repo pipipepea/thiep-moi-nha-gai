@@ -34,7 +34,7 @@
         .petal {
             position: absolute;
             top: -10%;
-            z-index: 10;
+            z-index: 100;
             user-select: none;
             pointer-events: none;
             animation: fall linear forwards;
@@ -52,7 +52,7 @@
             max-height: 95vh;
             background: var(--card-bg);
             border-radius: 16px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             overflow: hidden;
             border: 2px solid var(--accent-gold);
             position: relative;
@@ -61,69 +61,40 @@
             z-index: 20;
         }
         
+        /* CẤU TRÚC TRANG CHUNG */
         .page {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--card-bg);
             padding: 40px 25px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            pointer-events: none;
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             overflow-y: auto;
-            z-index: 1;
+            background: var(--card-bg);
         }
-        
-        .page::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="%23D4AF37" fill-opacity="0.15"/></svg>');
-            pointer-events: none;
-            z-index: -1;
-        }
-
         #page2, #page3 { justify-content: flex-start; }
         #page1 { justify-content: space-between; }
 
-        .page.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            pointer-events: auto;
-            z-index: 2;
-        }
-
-        .page > div {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            width: 100%;
-        }
-        .page.active > div:nth-child(1) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
-        .page.active > div:nth-child(2) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
-        .page.active > div:nth-child(3) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); }
-        .page.active > div:nth-child(4) { transition-delay: 0.8s; opacity: 1; transform: translateY(0); }
-        .page.active > div:nth-child(5) { transition-delay: 1.0s; opacity: 1; transform: translateY(0); }
-        .page.active > div:nth-child(6) { transition-delay: 1.2s; opacity: 1; transform: translateY(0); } /* Bổ sung delay cho nút dẫn đường */
-
-        /* BÌA THIỆP */
-        .cover-page {
-            background-image: linear-gradient(rgba(92, 16, 14, 0.75), rgba(74, 12, 10, 0.85)), 
-                              url('anh-cuoi.jpg');
+        /* TRANG BÌA: TRƯỢT LÊN TRÊN */
+        #page1 {
+            background-image: linear-gradient(rgba(92, 16, 14, 0.75), rgba(74, 12, 10, 0.85)), url('anh-cuoi.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             color: #FDFBF7;
+            z-index: 50;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+            transform: translateY(0);
         }
-        .cover-page::before { display: none; }
-        
+        #page1.slide-up {
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+
         .cover-names {
             font-family: 'Great Vibes', cursive;
             font-size: 56px;
@@ -133,7 +104,30 @@
             line-height: 1.2;
         }
 
-        /* ===== CHỮ HỶ: NEON GLOW ===== */
+        /* CÁC TRANG TRONG (TRANG 2 & 3): HIỆU ỨNG TRƯỢT MƯỢT MÀ */
+        #page2, #page3 {
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        #page2.active, #page3.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+        
+        #page2::before, #page3::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="%23D4AF37" fill-opacity="0.15"/></svg>');
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* THÀNH PHẦN GIAO DIỆN */
         .shuang-xi-text {
             font-size: 65px;
             font-family: 'Montserrat', sans-serif; 
@@ -147,17 +141,10 @@
         }
 
         @keyframes neon-pulse {
-            0% {
-                transform: scale(1);
-                text-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 20px rgba(212, 175, 55, 0.3);
-            }
-            100% {
-                transform: scale(1.08); 
-                text-shadow: 0 0 15px rgba(212, 175, 55, 1), 0 0 30px rgba(212, 175, 55, 0.8), 0 0 45px rgba(212, 175, 55, 0.6); 
-            }
+            0% { transform: scale(1); text-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 20px rgba(212, 175, 55, 0.3); }
+            100% { transform: scale(1.08); text-shadow: 0 0 15px rgba(212, 175, 55, 1), 0 0 30px rgba(212, 175, 55, 0.8), 0 0 45px rgba(212, 175, 55, 0.6); }
         }
 
-        /* ===== TIÊU ĐỀ ===== */
         .section-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 26px;
@@ -177,7 +164,6 @@
             text-shadow: 1px 1px 4px rgba(138, 28, 20, 0.2);
         }
         
-        /* ===== KHỐI THÔNG TIN ===== */
         .family-grid {
             display: flex;
             gap: 12px;
@@ -204,17 +190,8 @@
             border-bottom: 1.5px dashed var(--accent-gold);
             padding-bottom: 6px;
         }
-        .family-column p { 
-            font-size: 13.5px; 
-            line-height: 1.6; 
-            margin-bottom: 3px;
-        }
-        .family-column .address {
-            font-size: 12.5px;
-            color: #555;
-            margin-top: 8px;
-            line-height: 1.5;
-        }
+        .family-column p { font-size: 13.5px; line-height: 1.6; margin-bottom: 3px; }
+        .family-column .address { font-size: 12.5px; color: #555; margin-top: 8px; line-height: 1.5; }
         
         .venue-card {
             background: #FFFFFF;
@@ -234,8 +211,41 @@
             font-weight: 700;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
+
+        /* ===== Ô ĐẾM NGƯỢC THỜI GIAN (COUNTDOWN TIMER) ===== */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .countdown-box {
+            background: #FFF8E7;
+            border: 1px solid var(--accent-gold);
+            border-radius: 8px;
+            padding: 10px 8px;
+            min-width: 70px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .countdown-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-red);
+            line-height: 1.1;
+        }
+        .countdown-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #666;
+            margin-top: 4px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
         
-        /* NÚT BẤM CHUNG */
         .btn-primary {
             background-color: var(--accent-gold);
             color: #4A0C0A; 
@@ -252,7 +262,7 @@
             box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
             transition: all 0.3s ease;
             display: inline-block;
-            text-decoration: none; /* Khử gạch chân nếu dùng thẻ a */
+            text-decoration: none;
         }
         .btn-primary:hover {
             background-color: #E6C55C;
@@ -280,14 +290,6 @@
             background-color: var(--accent-gold);
             color: #FFF;
         }
-        
-        .map-container {
-            margin-top: 20px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 2px solid var(--accent-gold);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        }
     </style>
 </head>
 <body>
@@ -300,7 +302,7 @@
 
 <div class="invitation-wrapper">
     <!-- TRANG 1: BÌA -->
-    <div class="page cover-page active" id="page1">
+    <div class="page cover-page" id="page1">
         <div>
             <div style="font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-gold); margin-top: 50px; font-weight: 600; font-family: 'Montserrat', sans-serif;">Thiệp Mời Lễ Vu Quy</div>
             <div class="cover-names">Minh Thư <br><span style="font-size: 36px; font-family: 'Playfair Display'; color: #FFF;">&amp;</span><br> Văn Phúc</div>
@@ -313,7 +315,7 @@
         </div>
     </div>
 
-    <!-- TRANG 2: LỄ VU QUY & THÔNG TIN GIA ĐÌNH -->
+    <!-- TRANG 2: LỄ VU QUY -->
     <div class="page" id="page2">
         <div>
             <div class="shuang-xi-text">囍</div>
@@ -340,7 +342,6 @@
         <div>
             <div style="margin: 20px 0 15px 0;">
                 <p style="font-size: 14.5px; color: var(--accent-red); font-style: italic; margin-bottom: 12px; font-weight: 500;">Trân trọng kính mời Quý khách đến dự Lễ Vu Quy của con gái chúng tôi:</p>
-                
                 <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
                     <div style="text-align: right;">
                         <span style="font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nữ</span>
@@ -367,7 +368,7 @@
         </div>
     </div>
 
-    <!-- TRANG 3: TIỆC ĐÃI KHÁCH & BẢN ĐỒ -->
+    <!-- TRANG 3: TIỆC ĐÃI KHÁCH & ĐẾM NGƯỢC THỜI GIAN -->
     <div class="page" id="page3">
         <div>
             <div class="shuang-xi-text" style="font-size: 45px;">🥂</div>
@@ -381,26 +382,40 @@
                 <p style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; color: var(--accent-red); margin-bottom: 6px; text-transform: uppercase;">Sảnh Ngân Sen</p>
                 <p style="font-size: 13.5px; color: #555; margin-bottom: 10px;">Số 03 Hòa Bình, Phường Bình Thới, Quận 11, TP. HCM</p>
                 
-                <div style="background: #FFF8E7; border-radius: 20px; display: inline-block; padding: 6px 20px; border: 1px solid var(--accent-gold); margin: 12px 0 8px 0; box-shadow: 0 3px 8px rgba(0,0,0,0.05);">
+                <div style="background: #FFF8E7; border-radius: 20px; display: inline-block; padding: 6px 20px; border: 1px solid var(--accent-gold); margin: 10px 0 6px 0; box-shadow: 0 3px 8px rgba(0,0,0,0.05);">
                     <span style="font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: bold; color: var(--accent-red);">CHỦ NHẬT — 11:00</span>
                 </div>
                 <p style="font-size: 15px; font-weight: 600; color: var(--text-main);">Ngày 20 Tháng 09 Năm 2026</p>
                 
-                <div style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: #777; border-top: 1px dashed var(--accent-gold); padding-top: 12px; margin-top: 15px; font-weight: 500;">
+                <!-- BẢNG ĐẾM NGƯỢC THỜI GIAN -->
+                <div class="countdown-container">
+                    <div class="countdown-box">
+                        <div class="countdown-number" id="days">00</div>
+                        <div class="countdown-label">Ngày</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-number" id="hours">00</div>
+                        <div class="countdown-label">Giờ</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-number" id="minutes">00</div>
+                        <div class="countdown-label">Phút</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-number" id="seconds">00</div>
+                        <div class="countdown-label">Giây</div>
+                    </div>
+                </div>
+
+                <div style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: #777; border-top: 1px dashed var(--accent-gold); padding-top: 10px; margin-top: 15px; font-weight: 500;">
                     Đón khách: 11h00 &nbsp;|&nbsp; Khai tiệc: 12h00
                 </div>
             </div>
         </div>
 
-        <!-- Bản đồ Google Maps nhúng bằng Plus Code -->
-        <div class="map-container">
-            <iframe src="https://maps.google.com/maps?q=QJ9P%2BGX%20Bình%20Thới,%20Hồ%20Chí%20Minh,%20Việt%20Nam&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-
         <!-- Nút Mở Dẫn Đường Google Maps trực tiếp -->
         <div>
             <a href="https://www.google.com/maps/dir/?api=1&destination=QJ9P%2BGX+Bình+Thới,+Hồ+Chí+Minh,+Việt+Nam" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 25px; margin-top: 15px; font-size: 13px;">
-                <!-- Icon Navigation/Mũi tên -->
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
                 MỞ DẪN ĐƯỜNG
             </a>
@@ -410,27 +425,75 @@
             <p style="font-style: italic; font-size: 15px; color: var(--accent-red); margin-bottom: 10px;">
                 Sự hiện diện của Quý khách là niềm vinh hạnh lớn cho gia đình!
             </p>
-            <button class="btn-secondary" onclick="goToPage(1)">⟵ Quay lại trang bìa</button>
+            <button class="btn-secondary" onclick="goBackToCover()">⟵ Quay lại trang bìa</button>
         </div>
     </div>
 </div>
 
 <script>
-    function goToPage(pageNum) {
-        for (let i = 1; i <= 3; i++) {
-            document.getElementById('page' + i).classList.remove('active');
-        }
-        document.getElementById('page' + pageNum).classList.add('active');
-    }
+    let currentPage = 1;
 
     function openInvitationAndPlayMusic() {
         const music = document.getElementById('bgMusic');
-        music.play().catch(error => {
-            console.log("Trình duyệt yêu cầu tương tác thêm để phát nhạc.", error);
-        });
-        goToPage(2);
+        music.play().catch(error => { console.log("Cần tương tác để phát nhạc.", error); });
+        
+        const coverPage = document.getElementById('page1');
+        const targetPage = document.getElementById('page2');
+        
+        coverPage.classList.add('slide-up');
+        targetPage.classList.add('active');
+        currentPage = 2;
     }
 
+    function goToPage(pageNum) {
+        if(pageNum === currentPage) return;
+        const currentEl = document.getElementById('page' + currentPage);
+        const targetEl = document.getElementById('page' + pageNum);
+
+        currentEl.classList.remove('active');
+        targetEl.classList.add('active');
+        currentPage = pageNum;
+    }
+
+    function goBackToCover() {
+        const currentEl = document.getElementById('page' + currentPage);
+        const coverPage = document.getElementById('page1');
+
+        currentEl.classList.remove('active');
+        coverPage.classList.remove('slide-up');
+        currentPage = 1;
+    }
+
+    /* --- ĐỒNG HỒ ĐẾM NGƯỢC THỜI GIAN ĐẾN NGÀY CƯỚI (20/09/2026) --- */
+    const weddingDate = new Date("September 20, 2026 11:00:00").getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+
+        if (distance < 0) {
+            document.getElementById("days").innerText = "00";
+            document.getElementById("hours").innerText = "00";
+            document.getElementById("minutes").innerText = "00";
+            document.getElementById("seconds").innerText = "00";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = String(days).padStart(2, '0');
+        document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+        document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+        document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    /* --- HIỆU ỨNG HOA RƠI --- */
     const flowerContainer = document.getElementById('flower-container');
     const symbols = ['🌸', '✨', '💖', '❤️', '🌟']; 
 
