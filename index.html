@@ -68,16 +68,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 40px 25px;
+            padding: 25px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             overflow-y: auto;
             background: var(--card-bg);
+            justify-content: space-between;
         }
-        #page2, #page3 { justify-content: flex-start; }
-        #page1 { justify-content: space-between; }
 
         /* TRANG BÌA: TRƯỢT LÊN TRÊN */
         #page1 {
@@ -97,14 +96,66 @@
 
         .cover-names {
             font-family: 'Great Vibes', cursive;
-            font-size: 56px;
+            font-size: 46px;
             color: var(--accent-gold);
-            margin: 20px 0;
+            margin: 5px 0;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
             line-height: 1.2;
         }
 
-        /* CÁC TRANG TRONG (TRANG 2 & 3): HIỆU ỨNG TRƯỢT MƯỢT MÀ */
+        /* KHUNG CHỨA 2 ẢNH CƯỚI TRANG BÌA */
+        .cover-photos-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            padding: 0 10px;
+            margin: 5px 0;
+            overflow: hidden;
+        }
+
+        .photo-box {
+            width: 48%;
+            aspect-ratio: 1/1;
+            border: 2px solid var(--accent-gold);
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            
+            opacity: 0;
+            animation-duration: 1.2s;
+            animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+            animation-fill-mode: forwards;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes slideFromLeft {
+            0% { transform: translateX(-60px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideFromRight {
+            0% { transform: translateX(60px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .slide-left {
+            animation-name: slideFromLeft;
+            animation-delay: 0.2s;
+        }
+
+        .slide-right {
+            animation-name: slideFromRight;
+            animation-delay: 0.4s;
+        }
+
+        /* CÁC TRANG TRONG (TRANG 2 & 3) */
         #page2, #page3 {
             opacity: 0;
             pointer-events: none;
@@ -127,13 +178,47 @@
             z-index: -1;
         }
 
-        /* THÀNH PHẦN GIAO DIỆN */
+        /* HIỆU ỨNG TÊN CÔ DÂU CHÚ RỂ ĐI TỪ HAI BÊN VÀO TRANG 3 */
+        @keyframes nameSlideLeft {
+            0% { transform: translateX(-80px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes nameSlideRight {
+            0% { transform: translateX(80px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .page3-name-left {
+            opacity: 0;
+            animation: nameSlideLeft 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s;
+        }
+
+        .page3-name-right {
+            opacity: 0;
+            animation: nameSlideRight 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.4s;
+        }
+
+        /* HIỆU ỨNG NÚT MỞ DẪN ĐƯỜNG */
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .fade-in-btn {
+            opacity: 0;
+            animation: fadeInScale 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.6s;
+        }
+
         .shuang-xi-text {
-            font-size: 65px;
+            font-size: 44px;
             font-family: 'Montserrat', sans-serif; 
             font-weight: 700;
             color: var(--accent-gold); 
-            margin: 0 auto 10px auto;
+            margin: 0 auto;
             display: inline-block;
             line-height: 1;
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.5);
@@ -147,9 +232,9 @@
 
         .section-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 26px;
+            font-size: 20px;
             color: var(--accent-red);
-            margin-bottom: 20px;
+            margin: 3px 0;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 700;
@@ -158,90 +243,91 @@
         
         .couple-name-highlight {
             font-family: 'Great Vibes', cursive;
-            font-size: 42px;
+            font-size: 36px;
             color: var(--accent-red);
-            margin: 2px 0;
+            margin: 0;
             text-shadow: 1px 1px 4px rgba(138, 28, 20, 0.2);
         }
         
+        /* BẢN THÔNG TIN NHÀ TRAI NHÀ GÁI */
         .family-grid {
             display: flex;
             gap: 12px;
             width: 100%;
-            margin: 10px 0;
+            margin: 3px 0;
             text-align: left;
         }
         .family-column {
             flex: 1;
             background: #FFFFFF; 
-            padding: 15px 12px;
+            padding: 12px 10px;
             border-radius: 10px;
             border: 1px solid var(--accent-gold);
             box-shadow: 0 8px 20px rgba(0,0,0,0.08), inset 0 0 15px rgba(212, 175, 55, 0.05);
         }
         .family-column h4 {
             color: var(--accent-red);
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            margin-bottom: 6px;
             text-align: center;
             font-family: 'Cormorant Garamond', serif;
             font-weight: 700;
             text-transform: uppercase;
             border-bottom: 1.5px dashed var(--accent-gold);
-            padding-bottom: 6px;
+            padding-bottom: 3px;
         }
-        .family-column p { font-size: 13.5px; line-height: 1.6; margin-bottom: 3px; }
-        .family-column .address { font-size: 12.5px; color: #555; margin-top: 8px; line-height: 1.5; }
+        .family-column p { font-size: 13px; line-height: 1.4; margin-bottom: 2px; }
+        .family-column .address { font-size: 12px; color: #555; margin-top: 5px; line-height: 1.3; }
         
         .venue-card {
             background: #FFFFFF;
             border: 1.5px solid var(--accent-gold);
             border-radius: 12px;
-            padding: 25px 20px;
+            padding: 14px 12px;
             width: 100%;
-            margin-top: 10px;
+            margin: 5px 0;
             text-align: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1), inset 0 0 20px rgba(212, 175, 55, 0.05);
         }
         .venue-card h3 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 26px;
+            font-size: 22px;
             color: var(--accent-red);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             font-weight: 700;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
-        /* ===== Ô ĐẾM NGƯỢC THỜI GIAN (COUNTDOWN TIMER) ===== */
+        /* ===== Ô ĐẾM NGƯỢC THỜI GIAN ===== */
         .countdown-container {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 10px;
             width: 100%;
         }
         .countdown-box {
             background: #FFF8E7;
             border: 1px solid var(--accent-gold);
             border-radius: 8px;
-            padding: 10px 8px;
-            min-width: 70px;
+            padding: 6px 4px;
+            min-width: 58px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         .countdown-number {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 24px;
-            font-weight: 700;
+            font-family: 'Lora', serif;
+            font-size: 18px;
+            font-weight: 600;
             color: var(--accent-red);
             line-height: 1.1;
         }
         .countdown-label {
             font-family: 'Montserrat', sans-serif;
-            font-size: 10px;
+            font-size: 9px;
             text-transform: uppercase;
             color: #666;
-            margin-top: 4px;
+            margin-top: 2px;
             font-weight: 600;
             letter-spacing: 0.5px;
         }
@@ -250,15 +336,15 @@
             background-color: var(--accent-gold);
             color: #4A0C0A; 
             border: none;
-            padding: 14px 35px;
+            padding: 10px 25px;
             font-family: 'Montserrat', sans-serif; 
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
             border-radius: 30px;
             cursor: pointer;
-            margin-top: 15px;
+            margin: 4px 0;
             box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
             transition: all 0.3s ease;
             display: inline-block;
@@ -275,15 +361,15 @@
             border: 1.5px solid var(--accent-gold);
             color: var(--accent-red);
             font-family: 'Montserrat', sans-serif;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 600;
-            padding: 12px 30px;
+            padding: 8px 20px;
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 5px;
+            margin: 2px 0;
             text-decoration: none;
         }
         .btn-secondary:hover {
@@ -294,8 +380,9 @@
 </head>
 <body>
 
-<audio id="bgMusic" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=piano-moment-9835.mp3" type="audio/mpeg">
+<!-- ĐÃ SỬA LẠI FILE NHẠC THÀNH nv.mp3 THEO YÊU CẦU -->
+<audio id="bgMusic" loop preload="auto">
+    <source src="nv.mp3" type="audio/mpeg">
 </audio>
 
 <div id="flower-container"></div>
@@ -304,13 +391,23 @@
     <!-- TRANG 1: BÌA -->
     <div class="page cover-page" id="page1">
         <div>
-            <div style="font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-gold); margin-top: 50px; font-weight: 600; font-family: 'Montserrat', sans-serif;">Thiệp Mời Lễ Vu Quy</div>
-            <div class="cover-names">Minh Thư <br><span style="font-size: 36px; font-family: 'Playfair Display'; color: #FFF;">&amp;</span><br> Văn Phúc</div>
-            <div style="font-size: 16px; letter-spacing: 3px; margin-top: 15px; color: #FDFBF7; font-weight: 600;">20 . 09 . 2026</div>
+            <div style="font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-gold); margin-top: 5px; font-weight: 600; font-family: 'Montserrat', sans-serif;">Thiệp Mời Lễ Vu Quy</div>
+            <div class="cover-names">Minh Thư <br><span style="font-size: 28px; font-family: 'Playfair Display'; color: #FFF;">&amp;</span><br> Văn Phúc</div>
+            <div style="font-size: 14px; letter-spacing: 2px; margin-top: 4px; color: #FDFBF7; font-weight: 600;">20 . 09 . 2026</div>
         </div>
-        <div></div>
+
+        <div class="cover-photos-container">
+            <div class="photo-box slide-left">
+                <img src="CR1.jpg" alt="Ảnh cưới Minh Thư">
+            </div>
+            <div class="photo-box slide-right">
+                <img src="CR2.jfif" alt="Ảnh cưới Văn Phúc">
+            </div>
+        </div>
+
         <div>
-            <p style="font-size: 16px; font-style: italic; color: #D4AF37; margin-bottom: 20px; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">Trân trọng kính mời Quý khách</p>
+            <p style="font-size: 14px; font-style: italic; color: #D4AF37; margin-bottom: 8px; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">Trân trọng kính mời Quý khách</p>
+            <!-- NÚT NÀY SẼ GỌI HÀM PHÁT NHẠC VÀ MỞ THIỆP -->
             <button class="btn-primary" onclick="openInvitationAndPlayMusic()">Mở Thiệp</button>
         </div>
     </div>
@@ -322,70 +419,69 @@
             <div class="section-title">Trân Trọng Báo Tin Lễ Vu Quy</div>
         </div>
         
-        <div>
+        <div style="width: 100%;">
             <div class="family-grid">
                 <div class="family-column">
                     <h4>Nhà Gái</h4>
                     <p><strong>Ông:</strong> Nguyễn Lê Quân</p>
                     <p><strong>Bà:</strong> Nguyễn Thị Sinh</p>
-                    <div class="address">26 Cách Mạng, P. Phú Thọ Hòa<br>TP. HCM</div>
+                    <div class="address"><strong>ĐC:</strong> 26 Cách Mạng, P. Phú Thọ Hòa<br>TP. HCM</div>
                 </div>
                 <div class="family-column">
                     <h4>Nhà Trai</h4>
                     <p><strong>Ông:</strong> Nguyễn Văn Hân</p>
                     <p><strong>Bà:</strong> Trần Thị Lý</p>
-                    <div class="address">Thôn Phúc Lộc, Xã Hải Hưng<br>Tỉnh Ninh Bình</div>
+                    <div class="address"><strong>ĐC:</strong> Thôn Phúc Lộc, Xã Hải Hưng<br>Tỉnh Ninh Bình</div>
                 </div>
             </div>
+        </div>
+
+        <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <p style="font-size: 13.5px; color: var(--accent-red); font-style: italic; font-weight: 500;">Trân trọng kính mời Quý khách đến dự Lễ Vu Quy của con gái chúng tôi:</p>
+            
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
+                <div style="text-align: right;">
+                    <span style="font-family: 'Montserrat', sans-serif; font-size: 9.5px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nữ</span>
+                    <h3 class="couple-name-highlight">Minh Thư</h3>
+                </div>
+                <div style="font-family: 'Cormorant Garamond'; font-size: 24px; color: var(--accent-gold); text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">&amp;</div>
+                <div style="text-align: left;">
+                    <span style="font-family: 'Montserrat', sans-serif; font-size: 9.5px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nam</span>
+                    <h3 class="couple-name-highlight">Văn Phúc</h3>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: #FFF8E7; padding: 10px; border-radius: 8px; border: 1px solid var(--accent-gold); width: 100%; box-shadow: 0 6px 15px rgba(0,0,0,0.06), inset 0 0 10px rgba(212, 175, 55, 0.1);">
+            <p style="font-size: 13px; line-height: 1.4; color: var(--text-main);">
+                Hôn lễ được cử hành tại tư gia vào lúc <strong style="color: var(--accent-red); font-size: 14px;">09:00</strong> ngày <strong style="color: var(--accent-red); font-size: 14px;">20.09.2026</strong><br>
+                <span style="font-size: 11.5px; color: #666; font-style: italic;">(Nhằm ngày 10 tháng 8 năm Bính Ngọ)</span>
+            </p>
         </div>
 
         <div>
-            <div style="margin: 20px 0 15px 0;">
-                <p style="font-size: 14.5px; color: var(--accent-red); font-style: italic; margin-bottom: 12px; font-weight: 500;">Trân trọng kính mời Quý khách đến dự Lễ Vu Quy của con gái chúng tôi:</p>
-                <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
-                    <div style="text-align: right;">
-                        <span style="font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nữ</span>
-                        <h3 class="couple-name-highlight">Minh Thư</h3>
-                    </div>
-                    <div style="font-family: 'Cormorant Garamond'; font-size: 28px; color: var(--accent-gold); text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">&amp;</div>
-                    <div style="text-align: left;">
-                        <span style="font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nam</span>
-                        <h3 class="couple-name-highlight">Văn Phúc</h3>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="background: #FFF8E7; padding: 15px; border-radius: 8px; border: 1px solid var(--accent-gold); width: 100%; box-shadow: 0 6px 15px rgba(0,0,0,0.06), inset 0 0 10px rgba(212, 175, 55, 0.1);">
-                <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-main);">
-                    Hôn lễ được cử hành tại tư gia vào lúc <strong style="color: var(--accent-red); font-size: 16px;">09:00</strong> ngày <strong style="color: var(--accent-red); font-size: 16px;">20.09.2026</strong><br>
-                    <span style="font-size: 12.5px; color: #666; font-style: italic;">(Nhằm ngày 10 tháng 8 năm Bính Ngọ)</span>
-                </p>
-            </div>
-        </div>
-
-        <div style="margin-top: 15px; padding-bottom: 20px;">
             <button class="btn-primary" onclick="goToPage(3)">Tiệc Đãi Khách ➔</button>
         </div>
     </div>
 
-    <!-- TRANG 3: TIỆC ĐÃI KHÁCH & ĐẾM NGƯỢC THỜI GIAN -->
+    <!-- TRANG 3: TIỆC ĐÃI KHÁCH & ĐẾM NGƯỢC -->
     <div class="page" id="page3">
         <div>
-            <div class="shuang-xi-text" style="font-size: 45px;">🥂</div>
+            <div class="shuang-xi-text" style="font-size: 38px;">🥂</div>
             <div class="section-title">Tiệc Mừng Cưới</div>
-            <p style="font-size: 14.5px; color: #555; margin-bottom: 5px; font-style: italic;">Kính mời Quý khách đến dự buổi tiệc rượu<br>chung vui cùng gia đình nhà gái chúng tôi tại:</p>
+            <p style="font-size: 13px; color: #555; margin-bottom: 2px; font-style: italic;">Kính mời Quý khách đến dự buổi tiệc rượu<br>chung vui cùng gia đình nhà gái chúng tôi tại:</p>
         </div>
 
-        <div>
-            <div class="venue-card">
+        <div style="width: 100%;">
+            <div class="venue-card" style="margin: 0;">
                 <h3>Nhà Hàng Thủy Tạ Đầm Sen</h3>
-                <p style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; color: var(--accent-red); margin-bottom: 6px; text-transform: uppercase;">Sảnh Ngân Sen</p>
-                <p style="font-size: 13.5px; color: #555; margin-bottom: 10px;">Số 03 Hòa Bình, Phường Bình Thới, Quận 11, TP. HCM</p>
+                <p style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 12px; color: var(--accent-red); margin-bottom: 3px; text-transform: uppercase;">Sảnh Ngân Sen</p>
+                <p style="font-size: 12px; color: #555; margin-bottom: 6px;">Số 03 Hòa Bình, Phường Bình Thới, Quận 11, TP. HCM</p>
                 
-                <div style="background: #FFF8E7; border-radius: 20px; display: inline-block; padding: 6px 20px; border: 1px solid var(--accent-gold); margin: 10px 0 6px 0; box-shadow: 0 3px 8px rgba(0,0,0,0.05);">
-                    <span style="font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: bold; color: var(--accent-red);">CHỦ NHẬT — 11:00</span>
+                <div style="background: #FFF8E7; border-radius: 20px; display: inline-block; padding: 4px 15px; border: 1px solid var(--accent-gold); margin: 4px 0; box-shadow: 0 3px 8px rgba(0,0,0,0.05);">
+                    <span style="font-weight: bold; color: var(--accent-red);">CHỦ NHẬT — <span style="font-family: 'Lora', serif; font-size: 16px; font-weight: 600;">11:00</span></span>
                 </div>
-                <p style="font-size: 15px; font-weight: 600; color: var(--text-main);">Ngày 20 Tháng 09 Năm 2026</p>
+                <p style="font-size: 13px; font-weight: 600; color: var(--text-main);">Ngày 20 Tháng 09 Năm 2026</p>
                 
                 <!-- BẢNG ĐẾM NGƯỢC THỜI GIAN -->
                 <div class="countdown-container">
@@ -407,25 +503,44 @@
                     </div>
                 </div>
 
-                <div style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: #777; border-top: 1px dashed var(--accent-gold); padding-top: 10px; margin-top: 15px; font-weight: 500;">
+                <div style="font-family: 'Montserrat', sans-serif; font-size: 11px; color: #777; border-top: 1px dashed var(--accent-gold); padding-top: 6px; margin-top: 8px; font-weight: 500;">
                     Đón khách: 11h00 &nbsp;|&nbsp; Khai tiệc: 12h00
                 </div>
             </div>
         </div>
 
-        <!-- Nút Mở Dẫn Đường Google Maps trực tiếp -->
-        <div>
-            <a href="https://www.google.com/maps/dir/?api=1&destination=QJ9P%2BGX+Bình+Thới,+Hồ+Chí+Minh,+Việt+Nam" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 25px; margin-top: 15px; font-size: 13px;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
-                MỞ DẪN ĐƯỜNG
-            </a>
+        <!-- TÊN CÔ DÂU CHÚNG RỂ ĐI TỪ HAI BÊN VÀO -->
+        <div style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 12px; margin: 4px 0;">
+            <div class="page3-name-left" style="text-align: right;">
+                <span style="font-family: 'Montserrat', sans-serif; font-size: 9.5px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nữ</span>
+                <h3 class="couple-name-highlight" style="font-size: 30px;">Minh Thư</h3>
+            </div>
+            <div style="font-family: 'Cormorant Garamond'; font-size: 22px; color: var(--accent-gold);">&amp;</div>
+            <div class="page3-name-right" style="text-align: left;">
+                <span style="font-family: 'Montserrat', sans-serif; font-size: 9.5px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nam</span>
+                <h3 class="couple-name-highlight" style="font-size: 30px;">Văn Phúc</h3>
+            </div>
         </div>
 
-        <div style="margin-top: 20px; padding-bottom: 40px; display: flex; flex-direction: column; align-items: center;">
-            <p style="font-style: italic; font-size: 15px; color: var(--accent-red); margin-bottom: 10px;">
-                Sự hiện diện của Quý khách là niềm vinh hạnh lớn cho gia đình!
+        <!-- XUỐNG DÒNG RÕ RÀNG VÀ CHỈNH FONT ĐẸP CHO LỜI CẢM ƠN -->
+        <div style="margin-bottom: 6px; text-align: center; width: 100%; padding: 0 10px;">
+            <p style="font-style: italic; font-size: 12.5px; color: var(--accent-red); margin-bottom: 8px;">
+                Sự hiện diện của Quý khách là niềm vinh hạnh lớn cho gia đình!<br>
+                <span style="font-family: 'Great Vibes', cursive; font-size: 28px; color: var(--accent-red); display: inline-block; margin-top: 10px; text-shadow: 1px 1px 3px rgba(0,0,0,0.1);">
+                    Xin chân thành cảm ơn!
+                </span>
             </p>
-            <button class="btn-secondary" onclick="goBackToCover()">⟵ Quay lại trang bìa</button>
+        </div>
+
+        <!-- CÁC NÚT ĐIỀU HƯỚNG TỪ TỪ HIỆN LÊN -->
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=QJ9P%2BGX+Bình+Thới,+Hồ+Chí+Minh,+Việt+Nam" target="_blank" class="btn-primary fade-in-btn" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 18px; font-size: 11px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+                MỞ DẪN ĐƯỜNG
+            </a>
+            <div>
+                <button class="btn-secondary" onclick="goBackToCover()">⟵ Quay lại trang bìa</button>
+            </div>
         </div>
     </div>
 </div>
@@ -434,15 +549,24 @@
     let currentPage = 1;
 
     function openInvitationAndPlayMusic() {
+        // GỌI HÀM PHÁT NHẠC KHI NHẤN MỞ THIỆP
         const music = document.getElementById('bgMusic');
-        music.play().catch(error => { console.log("Cần tương tác để phát nhạc.", error); });
+        if (music) {
+            music.volume = 0.6; // Đặt âm lượng vừa phải, êm dịu
+            music.play().catch(error => { 
+                console.log("Trình duyệt có thể chặn phát nhạc tự động, cần người dùng tương tác thêm.", error); 
+            });
+        }
         
+        // CHUYỂN TRANG
         const coverPage = document.getElementById('page1');
         const targetPage = document.getElementById('page2');
         
-        coverPage.classList.add('slide-up');
-        targetPage.classList.add('active');
-        currentPage = 2;
+        if (coverPage && targetPage) {
+            coverPage.classList.add('slide-up');
+            targetPage.classList.add('active');
+            currentPage = 2;
+        }
     }
 
     function goToPage(pageNum) {
@@ -450,18 +574,22 @@
         const currentEl = document.getElementById('page' + currentPage);
         const targetEl = document.getElementById('page' + pageNum);
 
-        currentEl.classList.remove('active');
-        targetEl.classList.add('active');
-        currentPage = pageNum;
+        if (currentEl && targetEl) {
+            currentEl.classList.remove('active');
+            targetEl.classList.add('active');
+            currentPage = pageNum;
+        }
     }
 
     function goBackToCover() {
         const currentEl = document.getElementById('page' + currentPage);
         const coverPage = document.getElementById('page1');
 
-        currentEl.classList.remove('active');
-        coverPage.classList.remove('slide-up');
-        currentPage = 1;
+        if (currentEl && coverPage) {
+            currentEl.classList.remove('active');
+            coverPage.classList.remove('slide-up');
+            currentPage = 1;
+        }
     }
 
     /* --- ĐỒNG HỒ ĐẾM NGƯỢC THỜI GIAN ĐẾN NGÀY CƯỚI (20/09/2026) --- */
@@ -472,22 +600,31 @@
         const distance = weddingDate - now;
 
         if (distance < 0) {
-            document.getElementById("days").innerText = "00";
-            document.getElementById("hours").innerText = "00";
-            document.getElementById("minutes").innerText = "00";
-            document.getElementById("seconds").innerText = "00";
+            const d = document.getElementById("days");
+            const h = document.getElementById("hours");
+            const m = document.getElementById("minutes");
+            const s = document.getElementById("seconds");
+            if(d) d.innerText = "00";
+            if(h) h.innerText = "00";
+            if(m) m.innerText = "00";
+            if(s) s.innerText = "00";
             return;
         }
 
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60 * 60)) / (1000 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById("days").innerText = String(days).padStart(2, '0');
-        document.getElementById("hours").innerText = String(hours).padStart(2, '0');
-        document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
-        document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        const dEl = document.getElementById("days");
+        const hEl = document.getElementById("hours");
+        const mEl = document.getElementById("minutes");
+        const sEl = document.getElementById("seconds");
+
+        if(dEl) dEl.innerText = String(days).padStart(2, '0');
+        if(hEl) hEl.innerText = String(hours).padStart(2, '0');
+        if(mEl) mEl.innerText = String(minutes).padStart(2, '0');
+        if(sEl) sEl.innerText = String(seconds).padStart(2, '0');
     }
 
     setInterval(updateCountdown, 1000);
@@ -498,6 +635,7 @@
     const symbols = ['🌸', '✨', '💖', '❤️', '🌟']; 
 
     function createPetal() {
+        if (!flowerContainer) return;
         const petal = document.createElement('div');
         petal.classList.add('petal');
         petal.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
