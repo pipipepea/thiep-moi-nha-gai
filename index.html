@@ -111,6 +111,7 @@
         .page.active > div:nth-child(3) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); }
         .page.active > div:nth-child(4) { transition-delay: 0.8s; opacity: 1; transform: translateY(0); }
         .page.active > div:nth-child(5) { transition-delay: 1.0s; opacity: 1; transform: translateY(0); }
+        .page.active > div:nth-child(6) { transition-delay: 1.2s; opacity: 1; transform: translateY(0); } /* Bổ sung delay cho nút dẫn đường */
 
         /* BÌA THIỆP */
         .cover-page {
@@ -132,16 +133,15 @@
             line-height: 1.2;
         }
 
-        /* ===== CHỮ HỶ MỚI: BỎ VIỀN, MÀU VÀNG, PHÁT SÁNG (NEON GLOW) ===== */
+        /* ===== CHỮ HỶ: NEON GLOW ===== */
         .shuang-xi-text {
             font-size: 65px;
-            font-family: 'Montserrat', sans-serif; /* Font không chân cứng cáp, vuông vức */
+            font-family: 'Montserrat', sans-serif; 
             font-weight: 700;
-            color: var(--accent-gold); /* Chữ màu vàng kim */
+            color: var(--accent-gold); 
             margin: 0 auto 10px auto;
             display: inline-block;
             line-height: 1;
-            /* Hiệu ứng phát sáng (glow) đổ bóng chữ */
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.5);
             animation: neon-pulse 2.5s infinite alternate ease-in-out;
         }
@@ -152,12 +152,12 @@
                 text-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 20px rgba(212, 175, 55, 0.3);
             }
             100% {
-                transform: scale(1.08); /* Phóng to nhẹ */
-                text-shadow: 0 0 15px rgba(212, 175, 55, 1), 0 0 30px rgba(212, 175, 55, 0.8), 0 0 45px rgba(212, 175, 55, 0.6); /* Sáng chói lên */
+                transform: scale(1.08); 
+                text-shadow: 0 0 15px rgba(212, 175, 55, 1), 0 0 30px rgba(212, 175, 55, 0.8), 0 0 45px rgba(212, 175, 55, 0.6); 
             }
         }
 
-        /* ===== TIÊU ĐỀ: HIỆU ỨNG CHỮ SÁNG & ĐỔ BÓNG ===== */
+        /* ===== TIÊU ĐỀ ===== */
         .section-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 26px;
@@ -235,7 +235,7 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         
-        /* NÚT BẤM */
+        /* NÚT BẤM CHUNG */
         .btn-primary {
             background-color: var(--accent-gold);
             color: #4A0C0A; 
@@ -252,6 +252,7 @@
             box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
             transition: all 0.3s ease;
             display: inline-block;
+            text-decoration: none; /* Khử gạch chân nếu dùng thẻ a */
         }
         .btn-primary:hover {
             background-color: #E6C55C;
@@ -273,6 +274,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 5px;
+            text-decoration: none;
         }
         .btn-secondary:hover {
             background-color: var(--accent-gold);
@@ -314,7 +316,6 @@
     <!-- TRANG 2: LỄ VU QUY & THÔNG TIN GIA ĐÌNH -->
     <div class="page" id="page2">
         <div>
-            <!-- Chữ Hỷ Đổi Mới: Bỏ khung, phát sáng rực rỡ -->
             <div class="shuang-xi-text">囍</div>
             <div class="section-title">Trân Trọng Báo Tin Lễ Vu Quy</div>
         </div>
@@ -369,7 +370,6 @@
     <!-- TRANG 3: TIỆC ĐÃI KHÁCH & BẢN ĐỒ -->
     <div class="page" id="page3">
         <div>
-            <!-- Icon cụng ly áp dụng chung hiệu ứng phát sáng vàng -->
             <div class="shuang-xi-text" style="font-size: 45px;">🥂</div>
             <div class="section-title">Tiệc Mừng Cưới</div>
             <p style="font-size: 14.5px; color: #555; margin-bottom: 5px; font-style: italic;">Kính mời Quý khách đến dự buổi tiệc rượu<br>chung vui cùng gia đình nhà gái chúng tôi tại:</p>
@@ -392,13 +392,22 @@
             </div>
         </div>
 
-        <!-- Bản đồ Google Maps -->
+        <!-- Bản đồ Google Maps nhúng bằng Plus Code -->
         <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.522923722731!2d106.636657915334!3d10.771207892324905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ea11e9a31a9%3A0xc07a8bdf1b0386cf!2zTmjDoCBIw6BuZyBUaOG7p3kgVOG6oSDEkOG6p20gU2Vu!5e0!3m2!1svi!2s!4v1680000000000!5m2!1svi!2s" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://maps.google.com/maps?q=QJ9P%2BGX%20Bình%20Thới,%20Hồ%20Chí%20Minh,%20Việt%20Nam&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
 
-        <div style="margin-top: 25px; padding-bottom: 40px;">
-            <p style="font-style: italic; font-size: 15px; color: var(--accent-red); margin-bottom: 15px;">
+        <!-- Nút Mở Dẫn Đường Google Maps trực tiếp -->
+        <div>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=QJ9P%2BGX+Bình+Thới,+Hồ+Chí+Minh,+Việt+Nam" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 25px; margin-top: 15px; font-size: 13px;">
+                <!-- Icon Navigation/Mũi tên -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+                MỞ DẪN ĐƯỜNG
+            </a>
+        </div>
+
+        <div style="margin-top: 20px; padding-bottom: 40px; display: flex; flex-direction: column; align-items: center;">
+            <p style="font-style: italic; font-size: 15px; color: var(--accent-red); margin-bottom: 10px;">
                 Sự hiện diện của Quý khách là niềm vinh hạnh lớn cho gia đình!
             </p>
             <button class="btn-secondary" onclick="goToPage(1)">⟵ Quay lại trang bìa</button>
