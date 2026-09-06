@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thiệp Cưới Online — Minh Thư & Văn Phúc</title>
-    <!-- Cập nhật bộ font: Thêm Lora cho phần thông tin dễ đọc nhất -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <!-- Đã bỏ font chữ thư pháp cũ, giữ lại các font hiện đại và rõ nét -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #5C100E; 
@@ -20,7 +20,6 @@
             padding: 0;
         }
         body {
-            /* Đổi font chữ mặc định sang Lora cực kỳ rõ nét và dễ đọc */
             font-family: 'Lora', serif;
             background-color: var(--bg-color);
             background-image: radial-gradient(circle, #7A1713 0%, #4A0C0A 100%);
@@ -134,39 +133,61 @@
             line-height: 1.2;
         }
 
-        /* CHỮ HỶ THƯ PHÁP PHÁT SÁNG */
-        .shuang-xi-icon {
-            font-family: 'Ma Shan Zheng', cursive; 
-            font-size: 75px; 
+        /* ===== CHỮ HỶ MỚI: HIỆN ĐẠI & HIỆU ỨNG NỔI KHỐI (FLOATING GLOW) ===== */
+        .shuang-xi-circle {
+            width: 75px;
+            height: 75px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            font-size: 38px;
+            font-family: 'Montserrat', sans-serif; /* Font không chân sắc nét, hiện đại */
+            font-weight: 500;
             color: var(--accent-red);
-            line-height: 1;
-            margin: 0 auto 10px auto;
-            display: inline-block;
-            animation: pulse-glow 1.5s infinite alternate ease-in-out;
+            background: #FFFFFF;
+            /* Đổ bóng giúp khối tròn nổi bật hẳn lên */
+            box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            animation: float-glow 2.5s infinite alternate ease-in-out;
         }
 
-        @keyframes pulse-glow {
+        @keyframes float-glow {
             0% {
-                transform: scale(1);
-                text-shadow: 0 0 10px rgba(212, 175, 55, 0.3), 0 0 20px rgba(212, 175, 55, 0.1);
+                transform: translateY(0);
+                box-shadow: 0 4px 10px rgba(212,175,55,0.4);
             }
             100% {
-                transform: scale(1.12); 
-                text-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 0 35px rgba(212, 175, 55, 0.6), 0 0 50px rgba(138, 28, 20, 0.4);
+                transform: translateY(-5px); /* Trôi nổi lên */
+                box-shadow: 0 10px 25px rgba(212,175,55,0.8), 0 0 15px rgba(138, 28, 20, 0.15); /* Tỏa sáng mạnh hơn */
             }
         }
 
+        /* ===== TIÊU ĐỀ: HIỆU ỨNG CHỮ SÁNG & ĐỔ BÓNG ===== */
         .section-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 24px;
+            font-size: 26px;
             color: var(--accent-red);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 700;
+            /* Đổ bóng chữ giúp chữ nổi bật và sắc nét */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.15), 0 0 10px rgba(212, 175, 55, 0.3);
         }
         
-        /* PHẦN GIA ĐÌNH - ĐÃ PHÓNG TO CHỮ & DÙNG FONT LORA DỄ ĐỌC */
+        /* Tên Cô dâu Chú rể cũng có hiệu ứng đổ bóng */
+        .couple-name-highlight {
+            font-family: 'Great Vibes', cursive;
+            font-size: 42px;
+            color: var(--accent-red);
+            margin: 2px 0;
+            text-shadow: 1px 1px 4px rgba(138, 28, 20, 0.2);
+        }
+        
+        /* ===== KHỐI THÔNG TIN: TĂNG ĐỘ NỔI (SHADOW) & MÀU NỀN TÁCH BIỆT ===== */
         .family-grid {
             display: flex;
             gap: 12px;
@@ -176,11 +197,12 @@
         }
         .family-column {
             flex: 1;
-            background: #FFF;
+            background: #FFFFFF; /* Màu nền khối */
             padding: 15px 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            border-radius: 10px;
+            border: 1px solid var(--accent-gold); /* Viền vàng cứng cáp */
+            /* Đổ bóng cực mạnh để tách biệt khối khỏi nền */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08), inset 0 0 15px rgba(212, 175, 55, 0.05);
         }
         .family-column h4 {
             color: var(--accent-red);
@@ -190,30 +212,31 @@
             font-family: 'Cormorant Garamond', serif;
             font-weight: 700;
             text-transform: uppercase;
-            border-bottom: 1px dashed var(--accent-gold);
+            border-bottom: 1.5px dashed var(--accent-gold);
             padding-bottom: 6px;
         }
         .family-column p { 
-            font-size: 13.5px; /* Tăng size chữ */
+            font-size: 13.5px; 
             line-height: 1.6; 
             margin-bottom: 3px;
         }
         .family-column .address {
-            font-size: 12px;
+            font-size: 12.5px;
             color: #555;
             margin-top: 8px;
             line-height: 1.5;
         }
         
         .venue-card {
-            background: #FFF;
+            background: #FFFFFF;
             border: 1.5px solid var(--accent-gold);
             border-radius: 12px;
             padding: 25px 20px;
             width: 100%;
             margin-top: 10px;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(138, 28, 20, 0.1);
+            /* Bóng đổ dày và gắt hơn cho khối nhà hàng */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1), inset 0 0 20px rgba(212, 175, 55, 0.05);
         }
         .venue-card h3 {
             font-family: 'Cormorant Garamond', serif;
@@ -221,6 +244,7 @@
             color: var(--accent-red);
             margin-bottom: 8px;
             font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         
         /* NÚT BẤM */
@@ -229,7 +253,7 @@
             color: #4A0C0A; 
             border: none;
             padding: 14px 35px;
-            font-family: 'Montserrat', sans-serif; /* Dùng chữ không chân cho nút bấm để hiện đại */
+            font-family: 'Montserrat', sans-serif; 
             font-size: 14px;
             font-weight: 700;
             letter-spacing: 2px;
@@ -278,12 +302,10 @@
 </head>
 <body>
 
-<!-- Nhạc nền -->
 <audio id="bgMusic" loop>
     <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=piano-moment-9835.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Nơi thả cánh hoa rơi -->
 <div id="flower-container"></div>
 
 <div class="invitation-wrapper">
@@ -304,8 +326,8 @@
     <!-- TRANG 2: LỄ VU QUY & THÔNG TIN GIA ĐÌNH -->
     <div class="page" id="page2">
         <div>
-            <!-- Chữ Hỷ Thư Pháp Phát Sáng -->
-            <div class="shuang-xi-icon">囍</div>
+            <!-- Chữ Hỷ Đổi Mới -->
+            <div class="shuang-xi-circle">囍</div>
             <div class="section-title">Trân Trọng Báo Tin Lễ Vu Quy</div>
         </div>
         
@@ -327,23 +349,23 @@
         </div>
 
         <div>
-            <div style="margin: 15px 0;">
+            <div style="margin: 20px 0 15px 0;">
                 <p style="font-size: 14.5px; color: var(--accent-red); font-style: italic; margin-bottom: 12px; font-weight: 500;">Trân trọng kính mời Quý khách đến dự Lễ Vu Quy của con gái chúng tôi:</p>
                 
                 <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
                     <div style="text-align: right;">
                         <span style="font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nữ</span>
-                        <h3 style="font-family: 'Great Vibes', cursive; font-size: 40px; color: var(--accent-red); margin: 2px 0;">Minh Thư</h3>
+                        <h3 class="couple-name-highlight">Minh Thư</h3>
                     </div>
-                    <div style="font-family: 'Cormorant Garamond'; font-size: 28px; color: var(--accent-gold);">&amp;</div>
+                    <div style="font-family: 'Cormorant Garamond'; font-size: 28px; color: var(--accent-gold); text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">&amp;</div>
                     <div style="text-align: left;">
                         <span style="font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nam</span>
-                        <h3 style="font-family: 'Great Vibes', cursive; font-size: 40px; color: var(--accent-red); margin: 2px 0;">Văn Phúc</h3>
+                        <h3 class="couple-name-highlight">Văn Phúc</h3>
                     </div>
                 </div>
             </div>
             
-            <div style="background: #FFF8E7; padding: 15px; border-radius: 8px; border: 1px solid var(--accent-gold); width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+            <div style="background: #FFF8E7; padding: 15px; border-radius: 8px; border: 1px solid var(--accent-gold); width: 100%; box-shadow: 0 6px 15px rgba(0,0,0,0.06), inset 0 0 10px rgba(212, 175, 55, 0.1);">
                 <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-main);">
                     Hôn lễ được cử hành tại tư gia vào lúc <strong style="color: var(--accent-red); font-size: 16px;">09:00</strong> ngày <strong style="color: var(--accent-red); font-size: 16px;">20.09.2026</strong><br>
                     <span style="font-size: 12.5px; color: #666; font-style: italic;">(Nhằm ngày 10 tháng 8 năm Bính Ngọ)</span>
@@ -359,8 +381,8 @@
     <!-- TRANG 3: TIỆC ĐÃI KHÁCH & BẢN ĐỒ -->
     <div class="page" id="page3">
         <div>
-            <!-- Icon cụng ly cũng có hiệu ứng phát sáng giống chữ Hỷ -->
-            <div class="shuang-xi-icon" style="font-family: 'Montserrat', sans-serif; font-size: 55px;">🥂</div>
+            <!-- Icon cụng ly áp dụng chung hiệu ứng vòng tròn nổi của chữ Hỷ -->
+            <div class="shuang-xi-circle" style="font-size: 32px;">🥂</div>
             <div class="section-title">Tiệc Mừng Cưới</div>
             <p style="font-size: 14.5px; color: #555; margin-bottom: 5px; font-style: italic;">Kính mời Quý khách đến dự buổi tiệc rượu<br>chung vui cùng gia đình nhà gái chúng tôi tại:</p>
         </div>
@@ -371,7 +393,7 @@
                 <p style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; color: var(--accent-red); margin-bottom: 6px; text-transform: uppercase;">Sảnh Ngân Sen</p>
                 <p style="font-size: 13.5px; color: #555; margin-bottom: 10px;">Số 03 Hòa Bình, Phường Bình Thới, Quận 11, TP. HCM</p>
                 
-                <div style="background: #FFF8E7; border-radius: 20px; display: inline-block; padding: 6px 20px; border: 1px solid var(--accent-gold); margin: 12px 0 8px 0;">
+                <div style="background: #FFF8E7; border-radius: 20px; display: inline-block; padding: 6px 20px; border: 1px solid var(--accent-gold); margin: 12px 0 8px 0; box-shadow: 0 3px 8px rgba(0,0,0,0.05);">
                     <span style="font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: bold; color: var(--accent-red);">CHỦ NHẬT — 11:00</span>
                 </div>
                 <p style="font-size: 15px; font-weight: 600; color: var(--text-main);">Ngày 20 Tháng 09 Năm 2026</p>
