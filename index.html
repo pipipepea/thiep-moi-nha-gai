@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thiệp Cưới Online — Minh Thư & Văn Phúc</title>
-    <!-- Đã bỏ font chữ thư pháp cũ, giữ lại các font hiện đại và rõ nét -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -133,35 +132,28 @@
             line-height: 1.2;
         }
 
-        /* ===== CHỮ HỶ MỚI: HIỆN ĐẠI & HIỆU ỨNG NỔI KHỐI (FLOATING GLOW) ===== */
-        .shuang-xi-circle {
-            width: 75px;
-            height: 75px;
-            border: 2px solid var(--accent-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px auto;
-            font-size: 38px;
-            font-family: 'Montserrat', sans-serif; /* Font không chân sắc nét, hiện đại */
-            font-weight: 500;
-            color: var(--accent-red);
-            background: #FFFFFF;
-            /* Đổ bóng giúp khối tròn nổi bật hẳn lên */
-            box-shadow: 0 4px 15px rgba(212,175,55,0.3);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            animation: float-glow 2.5s infinite alternate ease-in-out;
+        /* ===== CHỮ HỶ MỚI: BỎ VIỀN, MÀU VÀNG, PHÁT SÁNG (NEON GLOW) ===== */
+        .shuang-xi-text {
+            font-size: 65px;
+            font-family: 'Montserrat', sans-serif; /* Font không chân cứng cáp, vuông vức */
+            font-weight: 700;
+            color: var(--accent-gold); /* Chữ màu vàng kim */
+            margin: 0 auto 10px auto;
+            display: inline-block;
+            line-height: 1;
+            /* Hiệu ứng phát sáng (glow) đổ bóng chữ */
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.5);
+            animation: neon-pulse 2.5s infinite alternate ease-in-out;
         }
 
-        @keyframes float-glow {
+        @keyframes neon-pulse {
             0% {
-                transform: translateY(0);
-                box-shadow: 0 4px 10px rgba(212,175,55,0.4);
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 20px rgba(212, 175, 55, 0.3);
             }
             100% {
-                transform: translateY(-5px); /* Trôi nổi lên */
-                box-shadow: 0 10px 25px rgba(212,175,55,0.8), 0 0 15px rgba(138, 28, 20, 0.15); /* Tỏa sáng mạnh hơn */
+                transform: scale(1.08); /* Phóng to nhẹ */
+                text-shadow: 0 0 15px rgba(212, 175, 55, 1), 0 0 30px rgba(212, 175, 55, 0.8), 0 0 45px rgba(212, 175, 55, 0.6); /* Sáng chói lên */
             }
         }
 
@@ -174,11 +166,9 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 700;
-            /* Đổ bóng chữ giúp chữ nổi bật và sắc nét */
             text-shadow: 1px 1px 3px rgba(0,0,0,0.15), 0 0 10px rgba(212, 175, 55, 0.3);
         }
         
-        /* Tên Cô dâu Chú rể cũng có hiệu ứng đổ bóng */
         .couple-name-highlight {
             font-family: 'Great Vibes', cursive;
             font-size: 42px;
@@ -187,7 +177,7 @@
             text-shadow: 1px 1px 4px rgba(138, 28, 20, 0.2);
         }
         
-        /* ===== KHỐI THÔNG TIN: TĂNG ĐỘ NỔI (SHADOW) & MÀU NỀN TÁCH BIỆT ===== */
+        /* ===== KHỐI THÔNG TIN ===== */
         .family-grid {
             display: flex;
             gap: 12px;
@@ -197,11 +187,10 @@
         }
         .family-column {
             flex: 1;
-            background: #FFFFFF; /* Màu nền khối */
+            background: #FFFFFF; 
             padding: 15px 12px;
             border-radius: 10px;
-            border: 1px solid var(--accent-gold); /* Viền vàng cứng cáp */
-            /* Đổ bóng cực mạnh để tách biệt khối khỏi nền */
+            border: 1px solid var(--accent-gold);
             box-shadow: 0 8px 20px rgba(0,0,0,0.08), inset 0 0 15px rgba(212, 175, 55, 0.05);
         }
         .family-column h4 {
@@ -235,7 +224,6 @@
             width: 100%;
             margin-top: 10px;
             text-align: center;
-            /* Bóng đổ dày và gắt hơn cho khối nhà hàng */
             box-shadow: 0 10px 25px rgba(0,0,0,0.1), inset 0 0 20px rgba(212, 175, 55, 0.05);
         }
         .venue-card h3 {
@@ -326,8 +314,8 @@
     <!-- TRANG 2: LỄ VU QUY & THÔNG TIN GIA ĐÌNH -->
     <div class="page" id="page2">
         <div>
-            <!-- Chữ Hỷ Đổi Mới -->
-            <div class="shuang-xi-circle">囍</div>
+            <!-- Chữ Hỷ Đổi Mới: Bỏ khung, phát sáng rực rỡ -->
+            <div class="shuang-xi-text">囍</div>
             <div class="section-title">Trân Trọng Báo Tin Lễ Vu Quy</div>
         </div>
         
@@ -381,8 +369,8 @@
     <!-- TRANG 3: TIỆC ĐÃI KHÁCH & BẢN ĐỒ -->
     <div class="page" id="page3">
         <div>
-            <!-- Icon cụng ly áp dụng chung hiệu ứng vòng tròn nổi của chữ Hỷ -->
-            <div class="shuang-xi-circle" style="font-size: 32px;">🥂</div>
+            <!-- Icon cụng ly áp dụng chung hiệu ứng phát sáng vàng -->
+            <div class="shuang-xi-text" style="font-size: 45px;">🥂</div>
             <div class="section-title">Tiệc Mừng Cưới</div>
             <p style="font-size: 14.5px; color: #555; margin-bottom: 5px; font-style: italic;">Kính mời Quý khách đến dự buổi tiệc rượu<br>chung vui cùng gia đình nhà gái chúng tôi tại:</p>
         </div>
