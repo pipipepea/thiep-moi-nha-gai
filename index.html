@@ -94,16 +94,25 @@
             pointer-events: none;
         }
 
+        /* HIỆU ỨNG PHÁT SÁNG CHO TÊN Ở BÌA */
         .cover-names {
             font-family: 'Great Vibes', cursive;
             font-size: 46px;
             color: var(--accent-gold);
             margin: 5px 0;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
             line-height: 1.2;
+            animation: glowCover 2.5s infinite alternate ease-in-out;
         }
 
-        /* KHUNG CHỨA 2 ẢNH CƯỚI TRANG BÌA */
+        @keyframes glowCover {
+            0% { 
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(212, 175, 55, 0.4); 
+            }
+            100% { 
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 1), 0 0 35px rgba(212, 175, 55, 0.7); 
+            }
+        }
+
         .cover-photos-container {
             display: flex;
             justify-content: space-between;
@@ -155,7 +164,7 @@
             animation-delay: 0.4s;
         }
 
-        /* CÁC TRANG TRONG (TRANG 2 & 3) */
+        /* CÁC TRANG TRONG */
         #page2, #page3 {
             opacity: 0;
             pointer-events: none;
@@ -178,25 +187,30 @@
             z-index: -1;
         }
 
-        /* ----- HIỆU ỨNG XUẤT HIỆN KHI CHUYỂN TRANG (THÊM MỚI) ----- */
+        /* HIỆU ỨNG ĐỀ MỤC XUẤT HIỆN TỪ TRÊN XUỐNG DƯỚI */
+        @keyframes fadeDownTitle {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .page.active .title-slide-down {
+            opacity: 0;
+            animation: fadeDownTitle 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s;
+        }
+
+        /* HIỆU ỨNG CÁC NỘI DUNG XUẤT HIỆN TỪ DƯỚI LÊN */
         @keyframes fadeInUpItem {
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
+        .animate-item { opacity: 0; }
+        .page.active .animate-item { animation: fadeInUpItem 0.8s ease forwards; }
+        .delay-1 { animation-delay: 0.4s; }
+        .delay-2 { animation-delay: 0.6s; }
+        .delay-3 { animation-delay: 0.8s; }
+        .delay-4 { animation-delay: 1.0s; }
 
-        .animate-item {
-            opacity: 0;
-        }
-
-        .page.active .animate-item {
-            animation: fadeInUpItem 0.8s ease forwards;
-        }
-        .delay-1 { animation-delay: 0.3s; }
-        .delay-2 { animation-delay: 0.5s; }
-        .delay-3 { animation-delay: 0.7s; }
-        .delay-4 { animation-delay: 0.9s; }
-
-        /* HIỆU ỨNG TÊN CÔ DÂU CHÚ RỂ ĐI TỪ HAI BÊN VÀO TRANG 3 */
+        /* HIỆU ỨNG TÊN CÔ DÂU CHÚ RỂ TRƯỢT TỪ 2 BÊN VÀO */
         @keyframes nameSlideLeft {
             0% { transform: translateX(-80px); opacity: 0; }
             100% { transform: translateX(0); opacity: 1; }
@@ -207,18 +221,19 @@
             100% { transform: translateX(0); opacity: 1; }
         }
 
-        .page.active .page3-name-left {
+        .page.active .name-slide-left {
             opacity: 0;
             animation: nameSlideLeft 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.6s;
+            animation-delay: 0.5s;
         }
 
-        .page.active .page3-name-right {
+        .page.active .name-slide-right {
             opacity: 0;
             animation: nameSlideRight 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.8s;
+            animation-delay: 0.7s;
         }
 
+        /* STYLES CƠ BẢN CỦA CHỮ */
         .shuang-xi-text {
             font-size: 44px;
             font-family: 'Montserrat', sans-serif; 
@@ -255,7 +270,7 @@
             text-shadow: 1px 1px 4px rgba(138, 28, 20, 0.2);
         }
         
-        /* BẢN THÔNG TIN NHÀ TRAI NHÀ GÁI */
+        /* BẢNG THÔNG TIN */
         .family-grid {
             display: flex;
             gap: 12px;
@@ -304,7 +319,6 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
-        /* ===== Ô ĐẾM NGƯỢC THỜI GIAN ===== */
         .countdown-container {
             display: flex;
             justify-content: center;
@@ -383,37 +397,50 @@
             color: #FFF;
         }
 
-        /* ===== NÚT AUDIO BẬT/TẮT THÊM MỚI ===== */
+        /* ===== NÚT AUDIO ĐĨA HÁT (Góc phải bên dưới) ===== */
         .audio-toggle-btn {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            background: rgba(212, 175, 55, 0.9);
+            bottom: 25px; 
+            right: 25px;
+            width: 48px;
+            height: 48px;
+            background: #FDFBF7; 
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
             cursor: pointer;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            border: 2px solid #FFF;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            border: 2px solid var(--accent-gold);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.5s ease, transform 0.3s ease;
+            transition: opacity 0.5s ease, transform 0.3s ease, filter 0.3s ease;
         }
+        
         .audio-toggle-btn.show {
             opacity: 1;
             pointer-events: auto;
         }
-        .audio-toggle-btn.playing {
-            animation: spin 4s linear infinite;
+        
+        .audio-toggle-btn.paused {
+            opacity: 0.6;
+            filter: grayscale(40%);
         }
+
         .audio-toggle-btn:hover {
             transform: scale(1.1);
         }
+
+        .vinyl-icon {
+            width: 36px;
+            height: 36px;
+        }
+        
+        .audio-toggle-btn.playing .vinyl-icon {
+            animation: spin 3.5s linear infinite;
+        }
+
         @keyframes spin {
             100% { transform: rotate(360deg); }
         }
@@ -421,14 +448,22 @@
 </head>
 <body>
 
-<!-- FILE NHẠC TỰ ĐỘNG CHẠY KHI BẤM MỞ THIỆP -->
+<!-- FILE NHẠC -->
 <audio id="bgMusic" loop preload="auto">
     <source src="nv.mp3" type="audio/mpeg">
 </audio>
 
-<!-- NÚT BẬT/TẮT NHẠC (Ẩn lúc đầu) -->
+<!-- NÚT BẬT/TẮT NHẠC HÌNH ĐĨA HÁT -->
 <div id="audioBtn" class="audio-toggle-btn" onclick="toggleAudio()">
-    <span id="audioIcon">🔊</span>
+    <svg class="vinyl-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="48" fill="#111" stroke="#333" stroke-width="1.5"/>
+        <circle cx="50" cy="50" r="38" fill="none" stroke="#2a2a2a" stroke-width="1.5"/>
+        <circle cx="50" cy="50" r="28" fill="none" stroke="#2a2a2a" stroke-width="1.5"/>
+        <circle cx="50" cy="50" r="16" fill="#8A1C14"/>
+        <circle cx="50" cy="50" r="4" fill="#FDFBF7"/>
+        <path d="M 50 2 A 48 48 0 0 1 98 50 L 50 50 Z" fill="rgba(255,255,255,0.06)"/>
+        <path d="M 50 98 A 48 48 0 0 1 2 50 L 50 50 Z" fill="rgba(255,255,255,0.06)"/>
+    </svg>
 </div>
 
 <div id="flower-container"></div>
@@ -437,9 +472,14 @@
     <!-- TRANG 1: BÌA -->
     <div class="page cover-page" id="page1">
         <div>
+            <!-- Chữ "THIỆP MỜI LỄ VU QUY" giữ nguyên ở trên cùng -->
             <div style="font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-gold); margin-top: 5px; font-weight: 600; font-family: 'Montserrat', sans-serif;">Thiệp Mời Lễ Vu Quy</div>
-            <div class="cover-names">Minh Thư <br><span style="font-size: 28px; font-family: 'Playfair Display'; color: #FFF;">&amp;</span><br> Văn Phúc</div>
-            <div style="font-size: 14px; letter-spacing: 2px; margin-top: 4px; color: #FDFBF7; font-weight: 600;">20 . 09 . 2026</div>
+            
+            <!-- Đẩy tên Cô dâu Chú rể và Ngày tháng xuống 40px -->
+            <div style="margin-top: 40px;">
+                <div class="cover-names">Minh Thư <br><span style="font-size: 28px; font-family: 'Playfair Display'; color: #FFF; text-shadow: none;">&amp;</span><br> Văn Phúc</div>
+                <div style="font-size: 14px; letter-spacing: 2px; margin-top: 4px; color: #FDFBF7; font-weight: 600;">20 . 09 . 2026</div>
+            </div>
         </div>
 
         <div class="cover-photos-container">
@@ -459,14 +499,14 @@
 
     <!-- TRANG 2: LỄ VU QUY -->
     <div class="page" id="page2">
-        <div class="animate-item delay-1">
+        <div class="title-slide-down">
             <div class="shuang-xi-text">囍</div>
             <div class="section-title" style="font-size: 28px; margin-top: 10px;">
                 Lễ Vu Quy
             </div>
         </div>
         
-        <div style="width: 100%;" class="animate-item delay-2">
+        <div style="width: 100%;" class="animate-item delay-1">
             <div class="family-grid">
                 <div class="family-column">
                     <h4>Nhà Gái</h4>
@@ -483,23 +523,23 @@
             </div>
         </div>
 
-        <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px;" class="animate-item delay-3">
+        <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px;" class="animate-item delay-2">
             <p style="font-size: 13.5px; color: var(--accent-red); font-style: italic; font-weight: 500;">Trân trọng kính mời Quý khách đến dự Lễ Vu Quy của con gái chúng tôi:</p>
-            
-            <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
-                <div style="text-align: right;">
-                    <span style="font-family: 'Montserrat', sans-serif; font-size: 9.5px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nữ</span>
-                    <h3 class="couple-name-highlight">Minh Thư</h3>
-                </div>
-                <div style="font-family: 'Cormorant Garamond'; font-size: 24px; color: var(--accent-gold); text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">&amp;</div>
-                <div style="text-align: left;">
-                    <span style="font-family: 'Montserrat', sans-serif; font-size: 9.5px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nam</span>
-                    <h3 class="couple-name-highlight">Văn Phúc</h3>
-                </div>
+        </div>
+
+        <div style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 12px; margin: 4px 0;">
+            <div class="name-slide-left" style="text-align: right;">
+                <span style="font-family: 'Montserrat', sans-serif; font-size: 9.5px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nữ</span>
+                <h3 class="couple-name-highlight" style="font-size: 30px;">Minh Thư</h3>
+            </div>
+            <div class="animate-item delay-3" style="font-family: 'Cormorant Garamond'; font-size: 22px; color: var(--accent-gold);">&amp;</div>
+            <div class="name-slide-right" style="text-align: left;">
+                <span style="font-family: 'Montserrat', sans-serif; font-size: 9.5px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nam</span>
+                <h3 class="couple-name-highlight" style="font-size: 30px;">Văn Phúc</h3>
             </div>
         </div>
         
-        <div style="background: #FFF8E7; padding: 10px; border-radius: 8px; border: 1px solid var(--accent-gold); width: 100%; box-shadow: 0 6px 15px rgba(0,0,0,0.06), inset 0 0 10px rgba(212, 175, 55, 0.1);" class="animate-item delay-4">
+        <div style="background: #FFF8E7; padding: 10px; border-radius: 8px; border: 1px solid var(--accent-gold); width: 100%; box-shadow: 0 6px 15px rgba(0,0,0,0.06), inset 0 0 10px rgba(212, 175, 55, 0.1);" class="animate-item delay-3">
             <p style="font-size: 13px; line-height: 1.4; color: var(--text-main);">
                 Hôn lễ được cử hành tại tư gia vào lúc <strong style="color: var(--accent-red); font-size: 14px;">09:00</strong> ngày <strong style="color: var(--accent-red); font-size: 14px;">20.09.2026</strong><br>
                 <span style="font-size: 11.5px; color: #666; font-style: italic;">(Nhằm ngày 10 tháng 8 năm Bính Ngọ)</span>
@@ -513,13 +553,18 @@
 
     <!-- TRANG 3: TIỆC ĐÃI KHÁCH & ĐẾM NGƯỢC -->
     <div class="page" id="page3">
-        <div class="animate-item delay-1">
+        <div class="title-slide-down">
+            <!-- Biểu tượng ly rượu giữ nguyên ở trên cùng -->
             <div class="shuang-xi-text" style="font-size: 38px;">🥂</div>
-            <div class="section-title">Tiệc Mừng Cưới</div>
-            <p style="font-size: 13px; color: #555; margin-bottom: 2px; font-style: italic;">Kính mời Quý khách đến dự buổi tiệc rượu<br>chung vui cùng gia đình nhà gái chúng tôi tại:</p>
+            
+            <!-- Đẩy phần Tiệc Mừng Cưới và Lời mời xuống 40px -->
+            <div style="margin-top: 40px;">
+                <div class="section-title">Tiệc Mừng Cưới</div>
+                <p style="font-size: 13px; color: #555; margin-bottom: 2px; font-style: italic;">Kính mời Quý khách đến dự buổi tiệc rượu<br>chung vui cùng gia đình nhà gái chúng tôi tại:</p>
+            </div>
         </div>
 
-        <div style="width: 100%;" class="animate-item delay-2">
+        <div style="width: 100%;" class="animate-item delay-1">
             <div class="venue-card" style="margin: 0;">
                 <h3>Nhà Hàng Thủy Tạ Đầm Sen</h3>
                 <p style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 12px; color: var(--accent-red); margin-bottom: 3px; text-transform: uppercase;">Sảnh Ngân Sen</p>
@@ -530,7 +575,6 @@
                 </div>
                 <p style="font-size: 13px; font-weight: 600; color: var(--text-main);">Ngày 20 Tháng 09 Năm 2026</p>
                 
-                <!-- BẢNG ĐẾM NGƯỢC THỜI GIAN -->
                 <div class="countdown-container">
                     <div class="countdown-box">
                         <div class="countdown-number" id="days">00</div>
@@ -557,12 +601,12 @@
         </div>
 
         <div style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 12px; margin: 4px 0;">
-            <div class="page3-name-left" style="text-align: right;">
+            <div class="name-slide-left" style="text-align: right;">
                 <span style="font-family: 'Montserrat', sans-serif; font-size: 9.5px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nữ</span>
                 <h3 class="couple-name-highlight" style="font-size: 30px;">Minh Thư</h3>
             </div>
-            <div style="font-family: 'Cormorant Garamond'; font-size: 22px; color: var(--accent-gold);">&amp;</div>
-            <div class="page3-name-right" style="text-align: left;">
+            <div class="animate-item delay-2" style="font-family: 'Cormorant Garamond'; font-size: 22px; color: var(--accent-gold);">&amp;</div>
+            <div class="name-slide-right" style="text-align: left;">
                 <span style="font-family: 'Montserrat', sans-serif; font-size: 9.5px; text-transform: uppercase; color: #888; font-weight: 600;">Út Nam</span>
                 <h3 class="couple-name-highlight" style="font-size: 30px;">Văn Phúc</h3>
             </div>
@@ -595,16 +639,15 @@
     function toggleAudio() {
         const music = document.getElementById('bgMusic');
         const audioBtn = document.getElementById('audioBtn');
-        const audioIcon = document.getElementById('audioIcon');
 
         if (music.paused) {
             music.play();
             audioBtn.classList.add('playing');
-            audioIcon.innerText = '🔊';
+            audioBtn.classList.remove('paused');
         } else {
             music.pause();
             audioBtn.classList.remove('playing');
-            audioIcon.innerText = '🔇';
+            audioBtn.classList.add('paused');
         }
     }
 
@@ -618,27 +661,25 @@
             
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
-                    // Phát nhạc thành công
                     audioBtn.classList.add('playing');
+                    audioBtn.classList.remove('paused');
                 }).catch(error => { 
                     console.log("Trình duyệt chặn autoplay.", error); 
+                    audioBtn.classList.add('paused');
                 });
             }
         }
         
-        // Hiện nút Audio
         audioBtn.classList.add('show');
         
-        // CHUYỂN TRANG
         const coverPage = document.getElementById('page1');
         const targetPage = document.getElementById('page2');
         
         if (coverPage && targetPage) {
             coverPage.classList.add('slide-up');
             
-            // Xóa class active cũ và thêm lại để reset animation
             targetPage.classList.remove('active');
-            void targetPage.offsetWidth; // Trigger reflow để animation chạy lại mượt mà
+            void targetPage.offsetWidth; 
             targetPage.classList.add('active');
             
             currentPage = 2;
@@ -653,7 +694,6 @@
         if (currentEl && targetEl) {
             currentEl.classList.remove('active');
             
-            // Trigger reflow để khởi động lại animation
             void targetEl.offsetWidth; 
             targetEl.classList.add('active');
             
@@ -670,7 +710,6 @@
             currentEl.classList.remove('active');
             coverPage.classList.remove('slide-up');
             
-            // Tùy chọn: Có thể ẩn nút nhạc đi khi về trang bìa
             audioBtn.classList.remove('show');
             
             currentPage = 1;
@@ -715,9 +754,10 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    /* --- HIỆU ỨNG HOA RƠI --- */
+    /* --- HIỆU ỨNG HOA RƠI KÈM CHỮ HỶ --- */
     const flowerContainer = document.getElementById('flower-container');
-    const symbols = ['🌸', '✨', '💖', '❤️', '🌟']; 
+    // Bổ sung '囍' vào mảng icon rơi
+    const symbols = ['🌸', '✨', '💖', '❤️', '🌟', '囍']; 
 
     function createPetal() {
         if (!flowerContainer) return;
@@ -727,7 +767,12 @@
         petal.style.left = Math.random() * 100 + 'vw';
         petal.style.fontSize = (Math.random() * 10 + 14) + 'px'; 
         
-        if(petal.innerHTML === '✨' || petal.innerHTML === '🌟') {
+        // Tạo style riêng cho chữ Hỷ (Màu đỏ đô + viền vàng)
+        if (petal.innerHTML === '囍') {
+            petal.style.color = '#8A1C14'; 
+            petal.style.fontWeight = '700';
+            petal.style.textShadow = '0 0 5px rgba(212, 175, 55, 0.8)';
+        } else if(petal.innerHTML === '✨' || petal.innerHTML === '🌟') {
             petal.style.textShadow = '0 0 5px #D4AF37';
         }
 
